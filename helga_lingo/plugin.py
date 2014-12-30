@@ -13,8 +13,9 @@ def lingo(client, channel, nick, message, cmd, args):
     try:
         data = execute_request(term)
         total = len(data['list'])
-        result = define(term, data, index)
-        return '{0} [{1}/{2}]'.format(result, index, total)
+        defn = define(term, data, index)
+        example = define(term, data, index, 'example')
+        return '{0} e.g.: {1} [{2}/{3}]'.format(defn, example, index, total)
     except Exception as e:
         return unicode('Lingo returned exception for ' + term + ":" + str(e))
 
