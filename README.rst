@@ -33,6 +33,10 @@ Returns (the third definition content):
     "Ya dig? Yeah I can dig it"
     etc.
 
+``!lingo -d <term>``
+
+Execute regular lingo query, but return debug results as well
+
 Methodology
 -----------
 

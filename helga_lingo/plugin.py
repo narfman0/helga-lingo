@@ -1,3 +1,4 @@
+""" Plugin entry point for helga lingo """
 import json, re, requests, urllib
 from helga.plugins import command
 
@@ -9,6 +10,9 @@ def lingo(client, channel, nick, message, cmd, args):
     """ Define from urban dictionary """
     if len(args) == 0:
         return u'You need to give me a term to look up.'
+    debug = '-d' in args
+    if debug:
+        args.remove('-d')
     term, index = parse_args(' '.join(args))
     try:
         data = execute_request(term)
@@ -17,7 +21,9 @@ def lingo(client, channel, nick, message, cmd, args):
         example = define(term, data, index, 'example')
         return '{0} e.g.: {1} [{2}/{3}]'.format(defn, example, index, total)
     except Exception as e:
-        return unicode('Lingo returned exception for ' + term + ":" + str(e))
+        if debug:
+            return 'Lingo exception for {} {}: {}'.format(term, index, str(e))
+        return 'No definition for term ' + term
 
 def execute_request(term):
     """ Invoke API to retrieve json hopefully representing term """
@@ -32,7 +38,10 @@ def execute_request(term):
 
 def define(term, data, index=1, action='definition'):
     """ Retrieve the definition for the term """
-    return data['list'][index-1][action]
+    try:
+        return data['list'][index-1][action]
+    except:
+        raise Exception('Parse failed for ' + action)
 
 def parse_args(args):
     """ Parse arguments to extract desired search term and index in def list """

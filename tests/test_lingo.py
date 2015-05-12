@@ -35,7 +35,12 @@ class TestResults(TestCase):
         data = json.loads(self.example_data)
         self.assertEqual(self.plugin.define('what', data), "definitionwhat")
 
+    def test_define_first_id(self):
+        """ verify the first definition by index is as it should be """
+        data = json.loads(self.example_data)
+        self.assertEqual(self.plugin.define('what', data, 1), "definitionwhat")
+
     def test_define_second(self):
         """ verify the second definition is as it should be """
         data = json.loads(self.example_data)
-        self.assertEqual(self.plugin.define('what', data, 1), "definitionwhat2")
+        self.assertEqual(self.plugin.define('what', data, 2), "definitionwhat2")
