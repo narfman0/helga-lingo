@@ -2,11 +2,11 @@ helga-lingo
 ======================
 
 
-.. image:: https://badge.fury.io/py/helga_lingo.png
-    :target: https://badge.fury.io/py/helga_lingo
+.. image:: https://badge.fury.io/py/helga-lingo.png
+    :target: https://badge.fury.io/py/helga-lingo
 
-.. image:: https://travis-ci.org/narfman0/helga_lingo.png?branch=master
-    :target: https://travis-ci.org/narfman0/helga_lingo
+.. image:: https://travis-ci.org/narfman0/helga-lingo.png?branch=master
+    :target: https://travis-ci.org/narfman0/helga-lingo
 
 Define words from urbandictionary.com
 
