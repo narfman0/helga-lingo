@@ -1,9 +1,16 @@
 """ Plugin entry point for helga lingo """
-import json, re, requests, urllib
+import json
+import re
+import requests
+try:
+    from urllib import quote
+except ImportError:
+    from urllib.parse import quote
 from helga.plugins import command
 
 _help_text = 'Define words from urbandictionary.com. \
 Usage: helga lingo <term>'
+
 
 @command('lingo', aliases=['urbandictionary', 'ud', 'urban'], help=_help_text)
 def lingo(client, channel, nick, message, cmd, args):
@@ -25,6 +32,7 @@ def lingo(client, channel, nick, message, cmd, args):
             return 'Lingo exception for {} {}: {}'.format(term, index, str(e))
         return 'No definition for term ' + term
 
+
 def execute_request(term):
     """ Invoke API to retrieve json hopefully representing term """
     api_url = 'http://api.urbandictionary.com/v0/define?term='
@@ -36,6 +44,7 @@ def execute_request(term):
         raise Exception('Response falsy for given term: ' + term)
     return response_json
 
+
 def define(term, data, index=1, action='definition'):
     """ Retrieve the definition for the term """
     try:
@@ -43,12 +52,13 @@ def define(term, data, index=1, action='definition'):
     except:
         raise Exception('Parse failed for ' + action)
 
+
 def parse_args(args):
     """ Parse arguments to extract desired search term and index in def list """
     index = 1
     match = re.search(r'\d+$', args)
     if match is not None:
         index = int(match.group())
-        args=args[:-len(str(index))-1]
-    term = urllib.quote(args)
+        args = args[:-len(str(index))-1]
+    term = quote(args)
     return (term, index)

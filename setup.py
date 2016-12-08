@@ -1,4 +1,3 @@
-from parse_requirements_not_suckily import parse_requirements
 from setuptools import setup, find_packages
 from helga_lingo import __version__ as version
 
@@ -24,7 +23,7 @@ setup(
     include_package_data=True,
     py_modules=['helga_lingo.plugin'],
     zip_safe=True,
-    install_requires=parse_requirements(),
+    install_requires=['requests', 'helga'],
     test_suite='tests.test_lingo',
     entry_points=dict(
         helga_plugins=[

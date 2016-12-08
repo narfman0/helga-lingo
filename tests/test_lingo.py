@@ -1,5 +1,12 @@
 import json
+import sys
 from unittest import TestCase
+try:
+    from unittest import mock
+except ImportError:
+    from mock import mock
+sys.modules['helga.plugins'] = mock.Mock()
+
 
 class TestResults(TestCase):
     example_data = """{"tags":["black","tag1"],"list":[{"word":"what","definition":"definitionwhat"},{"word":"what2","definition":"definitionwhat2"}]}"""
